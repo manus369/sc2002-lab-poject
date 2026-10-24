@@ -103,25 +103,36 @@ public class ConsoleUI {
         if (customers.isEmpty()) {
             return "-";
         }
-        String text = "";
+
+        StringBuilder text = new StringBuilder();
+
         for (Customer c : customers) {
-            text += (text.isEmpty() ? "" : ", ") + "C" + c.getId();
+            if (text.length() > 0) {
+                text.append(", ");
+            }
+            text.append("C").append(c.getId());
         }
-        return text;
+        return text.toString();
     }
 
     private String listOrders(List<Order> orders) {
         if (orders.isEmpty()) {
             return "-";
         }
-        String text = "";
-        for (Order o : orders) {
-            text += (text.isEmpty() ? "" : ", ") + "C" + o.getCustomer().getId() + " "
-                    + o.getItem().getName() + " " + o.getProgress();
-        }
-        return text;
-    }
 
+        StringBuilder text = new StringBuilder();
+
+        for (Order o : orders) {
+            if (text.length() > 0) {
+                text.append(", ");
+            }
+            text.append("C").append(o.getCustomer().getId())
+                .append(" ").append(o.getItem().getName())
+                .append(" ").append(o.getProgress());
+        }
+        return text.toString();
+    }
+    
     public void showMessage(String message) {
         System.out.println("  > " + message);
     }

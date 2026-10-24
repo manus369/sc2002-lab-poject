@@ -9,8 +9,8 @@ public abstract class Customer {
     public static final int MAX_SATISFACTION = 100;
     public static final int COMBO_SATISFACTION = 90;
 
-    private int id;
-    private int arrivalTurn;
+    private final int id;
+    private final int arrivalTurn;
     private int satisfaction = MAX_SATISFACTION;
     private CustomerStatus status = CustomerStatus.WAITING;
     private Table table;

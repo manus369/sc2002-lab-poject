@@ -27,12 +27,12 @@ public class GameController {
     public static final int TARGET_REVENUE_CENTS = 4500;
     public static final int TARGET_SATISFACTION = 60;
 
-    private Restaurant restaurant = new Restaurant(TABLES);
-    private Host host = new Host();
-    private Waiter waiter = new Waiter();
-    private Chef chef = new Chef();
-    private Cashier cashier = new Cashier();
-    private ConsoleUI ui;
+    private final Restaurant restaurant = new Restaurant(TABLES);
+    private final Host host = new Host();
+    private final Waiter waiter = new Waiter();
+    private final Chef chef = new Chef();
+    private final Cashier cashier = new Cashier();
+    private final ConsoleUI ui;
     private int turn;
     private int nextCustomerId = 1;
 

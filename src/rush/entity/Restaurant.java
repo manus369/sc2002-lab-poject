@@ -1,17 +1,18 @@
 package rush.entity;
 
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 
 /** Holds the tables, the waiting queue, the customers and the results so far. */
 public class Restaurant {
 
-    private Menu menu = new Menu();
-    private HappyHour happyHour = new HappyHour();
-    private List<Table> tables = new ArrayList<>();
-    private List<Customer> waitingQueue = new ArrayList<>();
-    private List<Customer> readyToPay = new ArrayList<>(); // oldest first
-    private List<Customer> customers = new ArrayList<>();  // everyone who arrived
+    private final Menu menu = new Menu();
+    private final HappyHour happyHour = new HappyHour();
+    private final List<Table> tables = new ArrayList<>();
+    private final List<Customer> waitingQueue = new ArrayList<>();
+    private final List<Customer> readyToPay = new ArrayList<>(); // oldest first
+    private final List<Customer> customers = new ArrayList<>();  // everyone who arrived
 
     private int revenueCents = 0;
     private int paidCount = 0;
@@ -87,7 +88,9 @@ public class Restaurant {
         revenueCents += customer.getOrder().getPriceCents();
         paidCount++;
         totalPaidSatisfaction += customer.getSatisfaction();
-        customer.getTable().free();
+        Table table = customer.getTable();
+        table.free();
+        customer.setTable(null);
     }
 
     /** Happy Hour: customers waiting for a table or for food recover some satisfaction. */
@@ -124,6 +127,7 @@ public class Restaurant {
         }
         if (c.getTable() != null) {
             c.getTable().free();
+            c.setTable(null);
         }
         waitingQueue.remove(c);
         leftCount++;
@@ -178,11 +182,11 @@ public class Restaurant {
     }
 
     public List<Table> getTables() {
-        return tables;
+        return Collections.unmodifiableList(tables);
     }
 
     public List<Customer> getWaitingQueue() {
-        return waitingQueue;
+        return Collections.unmodifiableList(waitingQueue);
     }
 
     public int getRevenueCents() {
